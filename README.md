@@ -5,9 +5,9 @@ creating, invoking methods on erased objects etc.
 Results on my machine:
 
 
-![image](https://user-images.githubusercontent.com/58717435/227316222-c8691fcb-7484-4e66-80a4-65e15ee27493.png)
+![image](https://user-images.githubusercontent.com/58717435/227379776-eeda7144-dd83-4edc-85a0-1dbfdbd2163e.png)
 
-![image](https://user-images.githubusercontent.com/58717435/227316342-7e2d3a98-d9e7-4e05-a6cb-c0751328016b.png)
+![image](https://user-images.githubusercontent.com/58717435/227379835-37e75d9a-b1e6-4ea8-86da-7bc9e9bb997f.png)
 
 Conclusions:
 
