@@ -88,11 +88,11 @@ static auto create_anyany(size_t count, std::default_random_engine& e) {
   auto generator = [&]() -> any_fooable {
     switch (std::uniform_int_distribution<int>(0, 2)(e)) {
       case 0:
-        return Deriv1{};
+        return concrete1{};
       case 1:
-        return Deriv2{};
+        return concrete2{};
       case 2:
-        return Deriv3{};
+        return concrete3{};
     }
     _STL_UNREACHABLE;
   };
@@ -186,16 +186,3 @@ BENCHMARK(sort_virtual);
 BENCHMARK(sort_anyany);
 
 BENCHMARK_MAIN();
-
-/*
-Выводы из бенчмарка:
-
-1. Вызовы На малых количествах элементов в векторе перфоманс практически одинаковый(зависит от порядка тестов)
-На больших значениях(когда элементы не влезают в кеш процессора) anyany начинает выигрывать за счёт лучшего расположения
-элементов в памяти. vtable_ptr и value_ptr можно подгружать параллельно, тогда как с виртуальными функциями
-процессор вынужден делать последовательно подгрузку сначала value_ptr, а затем vtable_ptr.
-К тому же значение часто не нужно подгружать, потому что оно уже тут( а vtable с большой долей вероятности уже есть в кеше, так как мы работаем
-с этими типами)
-2. 
-
-*/

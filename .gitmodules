@@ -1,0 +1,6 @@
+[submodule "AnyAny"]
+	path = AnyAny
+	url = https://github.com/kelbon/AnyAny
+[submodule "benchmark"]
+	path = benchmark
+	url = https://github.com/google/benchmark
