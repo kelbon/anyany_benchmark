@@ -9,7 +9,7 @@ struct IFooable {
   virtual std::unique_ptr<IFooable> clone() const = 0;
   virtual ~IFooable() = default;
 };
-// TODO add std::proxy in comparison
+
 struct Deriv1 : IFooable {
   double x = 3.14;
   int64_t foo(float f) noexcept override {
@@ -40,9 +40,11 @@ struct Deriv3 : IFooable {
   }
   ~Deriv3() override = default;
 };
-#include <anyany.hpp>
 
-trait(foo, int64_t(float), self.foo(args...));
+#include <anyany/anyany.hpp>
+#include <anyany/anyany_macro.hpp>
+
+anyany_method(foo, (& self, float f) requires(self.foo(f)) -> int64_t);
 
 using any_fooable = aa::any_with<foo, aa::copy, aa::move>;
 
@@ -161,8 +163,7 @@ static void sort_virtual(benchmark::State& state) {
 
   for (auto _ : state) {
     std::ranges::sort(vec, std::ranges::less{}, [](auto& x) { return x->foo(10); });
-    auto x = vec[vec.size() / 2]->foo(15);
-    benchmark::DoNotOptimize(x);
+    benchmark::DoNotOptimize(vec);
   }
 }
 static void sort_anyany(benchmark::State& state) {
@@ -171,8 +172,7 @@ static void sort_anyany(benchmark::State& state) {
 
   for (auto _ : state) {
     std::ranges::sort(vec, std::ranges::less{}, [](auto& a) { return a.foo(10); });
-    auto x = vec[vec.size() / 2].foo(15);
-    benchmark::DoNotOptimize(x);
+    benchmark::DoNotOptimize(vec);
   }
 }
 
